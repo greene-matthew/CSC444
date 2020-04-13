@@ -15,16 +15,17 @@ encryptedString = sys.stdin.read().rstrip('\n')
 encryptedStringTest = encryptedString.split('\n')[:10]
 
 
-lenOfEncyption= 0
-for line in encryptedStringTest:
-    for letter in line:
-        if letter in alphabet:
-            lenOfEncyption += 1
 
 
 
 
-def getKey(word):
+
+def getKey(word,encryptedString):
+    lenOfEncyption= 0
+    for line in encryptedString:
+        for letter in line:
+            if letter in alphabet:
+                lenOfEncyption += 1
     key = ""
     while len(key) < lenOfEncyption:
         key += word
@@ -75,11 +76,12 @@ def decrypt(key, encryptedText):
 
 
 for word in dictionary:
-    key = getKey(word)
+    key = getKey(word,encryptedStringTest)
     decryptedString = decrypt(key, encryptedStringTest)
     decryptedStringSplit = decryptedString.split(" ")
     if (checkIfValid(decryptedStringSplit)):
-        print("WORD=" + str(word))
+        print("KEY=" + str(word))
+        key = getKey(word, encryptedString)
         print(decrypt(key, encryptedString))
 
 
